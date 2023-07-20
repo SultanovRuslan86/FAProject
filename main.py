@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Query, Path, Body
-from schemas import Book, Author
+from schemas import Book, Author, BookOut
 
 from typing import List
 
@@ -25,10 +25,14 @@ def create_author(author: Author = Body(..., embed=True)):
     return {'author': author}
 
 
-@app.post('/books', response_model=Book, response_model_exclude_unset=False)
+@app.post('/books', response_model=Book, response_model_include={"pages", "date"})
 def create_book(item: Book):
     return item
 
+
+@app.post('/Bookout', response_model=BookOut)
+def create_bookout(item: Book):
+    return BookOut(**item.dict(), id=3)
 
 
 

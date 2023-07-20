@@ -31,6 +31,10 @@ class Book(BaseModel):
     pages: int
 
 
+class BookOut(Book):
+    id: int
+
+
 
 
 
